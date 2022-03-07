@@ -122,13 +122,4 @@ next.addEventListener("click", function(){
         answersNumbers.innerHTML = 0
     }
 })
-slmv,çasklmvpklmasldxv,
-aksdfas
-aslmvklpasmvsamvl
-smadfknanfd
-skdamvksamnvkpmsad
-asfjnajsdfn
-asfmdakdsmfckadsmca
-calsm,clpasmcvlasmvlamspklv msc
-asjodcnajo
-const taFodaAVida = "I'm cry"
+asdnsjdnajfnadsfjbacb
