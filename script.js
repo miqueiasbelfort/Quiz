@@ -10,7 +10,7 @@ const ask1 = {
 const ask2 = {
     id: 2,
     ask: "Onde Fica Tokyo?",
-    answer1: "Brazil",
+    answer1: "China",
     answer2: "Japão",
     answer3: "Argentina",
     answer4: "Portugal",
@@ -30,7 +30,7 @@ const ask4 = {
     ask: "Qual pais desses esta em guerra contra a Russia?",
     answer1: "Ukrania",
     answer2: "USA",
-    answer3: "Brazil",
+    answer3: "Turkia",
     answer4: "Venezuela",
     right: "Ukrania"
 }
@@ -40,7 +40,7 @@ const ask5 = {
     answer1: "8",
     answer2: "5",
     answer3: "10",
-    answer4: "3",
+    answer4: "7",
     right: "8"
 }
 
@@ -55,6 +55,7 @@ const ask6 = {
 }
 
 const data = [ask1,ask2,ask3,ask4,ask5,ask6]
+const answerData = [ask1.right, ask2.right, ask3.right, ask4.right, ask5.right, ask6.right]
 
 const next = document.getElementById("btnNext")
 const quiz = document.querySelector(".quiz")
@@ -65,6 +66,7 @@ const asksNumbers = document.getElementById("asks")
 let numId = 0
 answersNumbers.innerHTML = numId
 asksNumbers.innerHTML = data.length
+let rightAnswers = 0
 
 
 next.addEventListener("click", function(){
@@ -77,14 +79,30 @@ next.addEventListener("click", function(){
             quiz.innerHTML = ` 
                 <h2>${e.ask}</h2>
                 <div class="answerBtn">
-                    <button onClick="validarA()" id="a" class="answer">${e.answer1}</button>
-                    <button onClick="validarB()" id="b" class="answer">${e.answer2}</button>
-                    <button onClick="validarC()" id="c" class="answer">${e.answer3}</button>
-                    <button onClick="validarD()" id="d" class="answer">${e.answer4}</button>
+                    <button id="a" class="answer">${e.answer1}</button>
+                    <button id="b" class="answer">${e.answer2}</button>
+                    <button id="c" class="answer">${e.answer3}</button>
+                    <button id="d" class="answer">${e.answer4}</button>
                 </div>
             `
+
+            const answer = document.querySelectorAll(".answer")
+            answer.forEach(button => {
+                button.addEventListener("click", (elementButton) => {
+                    //alert(elementButton.target.textContent)
+                    if(elementButton.target.textContent == e.right){
+                        //alert("resposta certa!")
+                        rightAnswers++
+                        button.style.background = "green"
+                    } else {
+                       button.style.background = "red"
+                       button.style.cursosPointer = "block"
+                    }
+                })
+            })
+
         } else if (numId > data.length){ // se o numId for maior que o tamanha de data
-            quiz.innerHTML = "fished"    
+            quiz.innerHTML = rightAnswers    
         }
     })
 
@@ -93,12 +111,48 @@ next.addEventListener("click", function(){
         answersNumbers.innerHTML = 0
     }
 })
+/*
 const validarA = () => {
     const answerA = document.getElementById("a")
-    console.log(answerA.textContent)
-    if (answerA.textContent == ask1.right){
-        alert("Certa a resposta!")
-    } else{
-        alert("Resposta errada!")
-    }
+    const value = answerA.textContent
+    answerData.forEach(element => {
+        if (value == element){
+            console.log(`${value} = ${element}`)
+            rightAnswers++
+            answerA.style.background = "green"
+        }
+    })
 }
+const validarB = () => {
+    const answerB = document.getElementById("b")
+    const value = answerB.textContent
+    answerData.forEach(element => {   
+        if (value == element){
+            console.log(`${value} = ${element}`)
+            rightAnswers++
+            answerB.style.background = "green"
+        }
+    })
+}
+const validarC = () => {
+    const answerC = document.getElementById("c")
+    const value = answerC.textContent
+    answerData.forEach(element => {
+        if (value == element){
+            console.log(`${value} = ${element}`)
+            rightAnswers++
+            answerC.style.background = "green"
+        }
+    })
+}
+const validarD = () => {
+    const answerD = document.getElementById("d")
+    const value = answerD.textContent
+    answerData.forEach(element => {
+        if (value == element){
+            console.log(`${value} = ${element}`)
+            rightAnswers++
+            answerD.style.background = "green"
+        }
+    })
+}*/
