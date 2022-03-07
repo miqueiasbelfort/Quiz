@@ -112,7 +112,7 @@ next.addEventListener("click", function(){
         } else if (numId > data.length){ // se o numId for maior que o tamanha de data
             quiz.innerHTML = `
                 Você acertou ${rightAnswers} de ${data.length}
-                Porcentagem de ${rightAnswers * 10/data.length * 10}%
+                Porcentagem de ${Math.round(rightAnswers * 10/data.length * 10)}%
                 `   
         }
     })
@@ -122,4 +122,3 @@ next.addEventListener("click", function(){
         answersNumbers.innerHTML = 0
     }
 })
-asdnsjdnajfnadsfjbacb
