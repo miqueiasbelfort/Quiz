@@ -99,9 +99,7 @@ next.addEventListener("click", function(){
             const answer = document.querySelectorAll(".answer")
             answer.forEach(button => {
                 button.addEventListener("click", (elementButton) => {
-                    //alert(elementButton.target.textContent)
                     if(elementButton.target.textContent == e.right){
-                        //alert("resposta certa!")
                         rightAnswers++
                         button.style.background = "green"
                     }else {
@@ -114,7 +112,7 @@ next.addEventListener("click", function(){
         } else if (numId > data.length){ // se o numId for maior que o tamanha de data
             quiz.innerHTML = `
                 Você acertou ${rightAnswers} de ${data.length}
-                Porcentagem de ${rightAnswers * 10/data.length * 10}
+                Porcentagem de ${rightAnswers * 10/data.length * 10}%
                 `   
         }
     })
