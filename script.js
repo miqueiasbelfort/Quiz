@@ -69,6 +69,16 @@ asksNumbers.innerHTML = data.length
 let rightAnswers = 0
 
 
+function percorerBtn(answer, isTrue){
+    answer.forEach(btns => {
+        if (btns.textContent != isTrue){
+            btns.style.background = "red"
+        } else {
+            btns.style.background = "green"
+        }
+    })
+}
+
 next.addEventListener("click", function(){
    numId++
    
@@ -94,15 +104,18 @@ next.addEventListener("click", function(){
                         //alert("resposta certa!")
                         rightAnswers++
                         button.style.background = "green"
-                    } else {
-                       button.style.background = "red"
-                       button.style.cursosPointer = "block"
+                    }else {
+                        percorerBtn(answer, e.right)
                     }
+
                 })
             })
 
         } else if (numId > data.length){ // se o numId for maior que o tamanha de data
-            quiz.innerHTML = rightAnswers    
+            quiz.innerHTML = `
+                Você acertou ${rightAnswers} de ${data.length}
+                Porcentagem de ${rightAnswers * 10/data.length * 10}
+                `   
         }
     })
 
