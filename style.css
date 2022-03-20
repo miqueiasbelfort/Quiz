@@ -80,3 +80,6 @@ main{
 #textIntroducion{
     font-size: 14px;
 }
+.block {
+    pointer-events: none;
+}

@@ -15,6 +15,7 @@ let numId = 0
 answersNumbers.innerHTML = numId // numero de respostas = 0
 asksNumbers.innerHTML = data.length // quantidade de perguntas
 let rightAnswers = 0
+let repostaCorreta = false
 
 
 function percorerBtn(answer, isTrue){
@@ -22,8 +23,10 @@ function percorerBtn(answer, isTrue){
         
         if (btns.textContent != isTrue){ //as respostas que forem diferentes da repostas corretas
             btns.style.background = "red" // ficarão vermelhas
+            btns.classList.add("block")
         } else {
             btns.style.background = "green" // a corretas ficara verder
+            btns.classList.add("block")
         }
     })
     
@@ -34,52 +37,14 @@ function reloadPage(){
 }
 
 
-next.addEventListener("click", function(){
+next.addEventListener("click", () => {
    numId++
    next.innerHTML = "Próximo"
    textIntroducion.innerHTML = "Quando marcar a sua resposta clique em próximo para ir a outra pergunta!"
 
    //percorrndo o array com as perguntas e respostas
    data.forEach(e => {
-
-        if (e.id == numId){ //se o id for igual ao numId 
-
-            quiz.innerHTML = ` 
-                <h2>${e.ask}</h2>
-                <div class="answerBtn">
-                    <button id="a" class="answer">${e.answer1}</button>
-                    <button id="b" class="answer">${e.answer2}</button>
-                    <button id="c" class="answer">${e.answer3}</button>
-                    <button id="d" class="answer">${e.answer4}</button>
-                </div>
-            `
-
-            const answer = document.querySelectorAll(".answer")
-
-            answer.forEach(button => { //Percorendo as respostas 
-                //Add um evento de click quando clicar em uma delas
-                button.addEventListener("click", (elementButton) => {
-
-                    if(elementButton.target.textContent == e.right){ //Se o conteudo dela for igual a resposta correta
-                        rightAnswers++ //Somar mais pontos
-                        button.style.background = "green"
-                        
-                    }else {
-                        //callback
-                        percorerBtn(answer, e.right)
-                    }
-                })
-            })
-
-        } else if (numId > data.length){ // se o numId for maior que o tamanha de data
-            
-            quiz.innerHTML = `
-                Você acertou ${rightAnswers} de ${data.length} | 
-                Porcentagem de ${Math.round(rightAnswers * 10 / data.length * 10)}%
-            `
-            textIntroducion.innerHTML = " "
-            next.style.display = "none"
-        }
+        checkTheOption(e)
     })
 
     answersNumbers.innerHTML = numId
@@ -90,3 +55,51 @@ next.addEventListener("click", function(){
         `
     }
 })
+
+//Função para checar as opções e imprimir
+const checkTheOption = (e) => {
+
+    if (e.id == numId){ //se o id for igual ao numId 
+
+        quiz.innerHTML = ` 
+            <h2>${e.ask}</h2>
+            <div class="answerBtn">
+                <button id="a" class="answer">${e.answer1}</button>
+                <button id="b" class="answer">${e.answer2}</button>
+                <button id="c" class="answer">${e.answer3}</button>
+                <button id="d" class="answer">${e.answer4}</button>
+            </div>
+        `
+
+        perTheAnswer(e) //Percorer as questões
+
+    } else if (numId > data.length){ // se o numId for maior que o tamanha de data
+        
+        quiz.innerHTML = `
+            Você acertou ${rightAnswers} de ${data.length} | 
+            Porcentagem de ${Math.round(rightAnswers * 10 / data.length * 10)}%
+        `
+        textIntroducion.innerHTML = " "
+        next.style.display = "none"
+    }
+}
+
+//Percorer as questões
+const perTheAnswer = (e) => {
+    const answer = document.querySelectorAll(".answer")
+
+        answer.forEach(button => { //Percorendo as respostas 
+            //Add um evento de click quando clicar em uma delas
+            button.addEventListener("click", (elementButton) => {
+
+                if(elementButton.target.textContent == e.right){ //Se o conteudo dela for igual a resposta correta
+                    rightAnswers++ //Somar mais pontos
+                    button.style.background = "green"
+                    button.classList.add("block")
+                    return checkTheOption() 
+                }
+
+                percorerBtn(answer, e.right)
+            })
+        })
+}
